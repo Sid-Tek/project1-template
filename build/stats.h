@@ -3,5 +3,6 @@
 
 double mean(const double *values, int n);
 double maximum(const double *values, int n);
+int another_placeholder;
 
 #endif

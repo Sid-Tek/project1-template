@@ -1,0 +1,9 @@
+1. Running make a second time, without modification, leads to nothing being recompiled. 
+This is because everything is up to date, with neither object file older than the .c files they're compiled from.
+
+2. After modifying stats and running make, stats.o is rebuilt.
+This is since now, stats.o is older than the stats.c file it's compiled from. 
+But with stats.o rebuilt, it's now newer than stats.c as it should.
+
+3. Modifying stats.h, stats.o was again rebuilt.
+This is since stats.h can't be newer than stats.o, so the latter is rebuilt. The logic is similar as from the answer above.
