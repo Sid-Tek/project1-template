@@ -1,0 +1,54 @@
+The program address-space recursively invokes a function. Each invocation contains a local
+variable and performs a small dynamic allocation. At the deepest recursion level the program pauses
+so that you can inspect it.
+Run the program and use the printed addresses together with /proc/PID/maps and, where
+useful, /proc/PID/smaps to answer:
+
+1. Which printed addresses correspond to stack objects and which correspond to dynamically
+allocated heap objects? Explain how you know.
+
+The addresses in the 0x7ffe range correspond to stack objects, according to smap's results:
+7ffe2e1f1000-7ffe2e212000 rw-p 00000000 00:00 0                          [stack]
+The addresses in the 0x588e range correspond to heap objects, according to smap's results:
+588eea2f1000-588eea312000 rw-p 00000000 00:00 0                          [heap]
+
+
+2. In which direction do the stack addresses change as recursion becomes deeper? In which direction
+do successive heap allocations tend to move in this run? Do not assume that either observation
+is guaranteed by the C language.
+
+Stack addresses decrease as recursion becomes deeper, while heap allocations increase.
+And yes, I acknowledge this is not a guarantee across the C language.
+
+
+3. Find the virtual-address ranges labeled [stack] and [heap] in /proc/PID/maps. Verify that
+the printed addresses lie in the region you expect.
+
+588eea2f1000-588eea312000 rw-p 00000000 00:00 0                          [heap]
+7ffe2e1f1000-7ffe2e212000 rw-p 00000000 00:00 0                          [stack]
+These addresses lie in the expected regions!
+
+
+4. While the process is paused, report the mapped size of the stack and heap regions. Briefly
+distinguish a virtual address range from the amount of physical memory actually resident in
+RAM.
+
+Heap has virtual mapping size 132kB, Rss 4kB, and Private_Dirty 4kB.
+Stack has virtual mapping size 132kB, Rss 16kB, and Private_Dirty 16kB:
+00007ffe2e1f1000     132      16      16 rw---   [ stack ]
+
+Reserving a virtual address range doesn't allocate actual physical RAM. Instead, the process gets
+addresses it's assured that it can use. *Can*, not will. This means a large virtual 
+address range doesn't always correspond to a large amount of physical memory being occupied.
+
+
+
+5. Run the program under strace. Select five system calls that are important or interesting in this
+execution and explain, in one sentence each, what role they play. You do not need to catalog
+every unique system call.
+
+brk - adjusts the program break so that the heap can grow.
+read - reads from file descriptors.
+write - writes the printed addresses.
+MAP_PRIVATE - sets the mapping to be 'copy-on-write'.
+mmap - maps a file or an anonymous memory into the virtual address space.
