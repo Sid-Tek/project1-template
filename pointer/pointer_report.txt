@@ -1,0 +1,62 @@
+Before running the program, answer the following. Then compile and run it and check your
+predictions.
+
+1. What are the types of p, pp, *pp, and **pp? What objects do they refer to?
+
+p is type int *. It refers to the address of a[0].
+pp is type int **. It refers to p.
+*pp is type int *. It refers to the value at address p - aka the address of a[0].  
+**pp is type int. It refers to the value of a[0] = 10.
+
+
+2. Explain the difference among p, &p, *p, a, and &a. You do not need to reproduce formal C
+type-system terminology, but your explanation must distinguish an address from the object
+stored at that address.
+
+p refers to the address of a[0].
+&p is the address of p, aka the address of the address of a[0].
+*p is the value stored at the address p holds, which is 10.
+a is an integer array of size four, but holds the address of a[0]
+&a refers to the address of the entire array a 
+
+
+3. What does p + 1 mean? If p has numeric address A, is the numeric address of p + 1 normally
+A + 1? Explain.
+
+p+1 means we move its address by 1 unit forward, meaning it moves from the address of a[0] to that of a[1].
+p+1 is not always A+1, because numeric addresses move in increments of (usually) four.
+
+
+4. Predict the three integers printed by the first printf call.
+
+10, 30, 30
+
+
+5. For each of the following, state whether the object itself resides on the stack, heap, or elsewhere:
+a, p, pp, local, heap, and the struct pair returned by malloc. In particular, distinguish the
+pointer variable heap from the object to which it points.
+
+a: stack
+p: stack
+pp: stack
+local:stack
+heap: stack
+struct pair returned by malloc: heap (malloc gives it away)
+Pointer variable heap is in the stack, but the struct pair it points to is in the heap.
+
+
+6. Explain why malloc(sizeof *heap) is preferable to writing a numeric allocation size. What do
+sizeof(heap) and sizeof(*heap) measure?
+
+malloc(sizeof *heap) is preferable because a manual, numerical allocation is much more error-prone. Automatic adjustment is more preferable.
+sizeof(heap) measures the size of the address of the struct pair named heap.
+sizeof(*heap) measures the size of the struct pair itself.
+
+
+Next, edit pointer.c as follows:
+(a) Dynamically allocate an array of 100 struct pair objects without hard-coding the size of
+struct pair.
+(b) Initialize element i to contain x = i and y = 2i using pointer or array notation.
+(c) Free the allocation correctly.
+Deliverable: Commit the modified program and include concise answers to Questions 1–6 in
+your report.
