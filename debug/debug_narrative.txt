@@ -1,0 +1,8 @@
+Running normally I observed no failure. Code returned total=100. This, however, might be hiding a deeper error. 
+Starting GDB I put a breakpoint in line 13. I used 'continue' to move through iterations.
+Each time I used commands print(i) and print(records[i]). I used x to examine the memory of the records pointer: x/4iw records.
+As said previously, no overt failure was observed. Regardless, I still used backtrace to confirm addresses.
+The bug is that iterator i goes beyond the array index. Use of <= instead of < means i goes to 4, corresponding to 
+the fifth element of array records - which doesn't exist. So the value for that loops around to zero, giving a "correct" answer
+despite the error. To prevent the possibility of a crash, I changed line 12 to:
+for (int i = 0; i < n; i++)
