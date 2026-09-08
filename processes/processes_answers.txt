@@ -1,0 +1,40 @@
+1. Immediately after fork, compare the parent and child PIDs and the virtual addresses of a global
+variable, a stack variable, and a dynamically allocated object. Some virtual addresses may be
+equal. Does equal virtual address imply that the parent and child are using the same physical
+memory location? Explain at a high level.
+
+PARENT_AFTER_FORK pid=53678 child=53679 global=0x5c19c4742010 stack=0x7ffebddb75a4 heap=0x5c19f39b42a0 values=100,200,300
+CHILD_AFTER_FORK pid=53679  ppid=53678 global=0x5c19c4742010 stack=0x7ffebddb75a4 heap=0x5c19f39b42a0 values=100,200,300
+
+As we can see, the child PID is the parent PID + 1 (the actual numbers themselves vary by execution). Both have the same global address, heap, and stack location. 
+This does not, however, imply both are using the same physical memory location. 
+The reason is because after fork(), the child gets a copy-on-write duplicate of the parent’s virtual address space, not the same physical pages.  
+So as soon as either the parent or child writes, the memory locations will diverge.
+
+
+2. The starter code already modifies observed variables in the child after fork. Does the corre-
+sponding value in the parent change? Explain the result in terms of process address spaces and
+copy-on-write.
+
+As said above, while the parent and child have identical virtual addresses they have different physical memory once either process writes. 
+This is the basis of copy-on-write. As such, a variable in the child does not affect the parent. Thus, the corresponding value in the parent does not change,
+
+
+3. Compare /proc/PID/maps for the child immediately before and after successful exec. What 
+changed? What happened to the old program’s code, data, heap, and stack?
+
+The first change is that the program location changed from /processes/parent to /processes/child, telling us that exec was indeed successful.
+We also saw a change in the heap and stack memory addresses. In total, the old program's code, data, heap, and stack are all gone.
+The new program of the child now has its own mappings unique from the parent process.
+
+
+
+4. Use strace -f (or an equivalent option you discover from the man page) to follow both processes.
+Identify the fork/clone-related call, the exec call, and the parent’s wait-related call.
+
+I used strace -f -o trace.txt ./parent. The output file should be in the same folder but I'll continue my answer nonetheless.
+
+The fork/clone-related call is: 61510 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x716de1e0fa10) = 61511
+The exec call is: 61511 execve("./child", ["child"], 0x7ffdd9cdf258 /* 26 vars */) = 0.
+The parent's wait-related call is: 61510 wait4(61511,  <unfinished ...>
+and is ended at: 61510 <... wait4 resumed>[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 61511

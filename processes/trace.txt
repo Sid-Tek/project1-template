@@ -1,0 +1,116 @@
+61510 execve("./parent", ["./parent"], 0x7ffefc678328 /* 26 vars */) = 0
+61510 brk(NULL)                         = 0x5ae07ad81000
+61510 arch_prctl(0x3001 /* ARCH_??? */, 0x7ffdd9cdf080) = -1 EINVAL (Invalid argument)
+61510 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x716de1e17000
+61510 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+61510 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+61510 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=18763, ...}, AT_EMPTY_PATH) = 0
+61510 mmap(NULL, 18763, PROT_READ, MAP_PRIVATE, 3, 0) = 0x716de1e12000
+61510 close(3)                          = 0
+61510 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+61510 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+61510 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+61510 pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+61510 pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\"\312\n\203\244\0A\"\343\ni\265\227\276\226\341"..., 68, 896) = 68
+61510 newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2220400, ...}, AT_EMPTY_PATH) = 0
+61510 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+61510 mmap(NULL, 2264656, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x716de1a00000
+61510 mprotect(0x716de1a28000, 2023424, PROT_NONE) = 0
+61510 mmap(0x716de1a28000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x716de1a28000
+61510 mmap(0x716de1bbd000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x716de1bbd000
+61510 mmap(0x716de1c16000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x215000) = 0x716de1c16000
+61510 mmap(0x716de1c1c000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x716de1c1c000
+61510 close(3)                          = 0
+61510 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x716de1e0f000
+61510 arch_prctl(ARCH_SET_FS, 0x716de1e0f740) = 0
+61510 set_tid_address(0x716de1e0fa10)   = 61510
+61510 set_robust_list(0x716de1e0fa20, 24) = 0
+61510 rseq(0x716de1e100e0, 0x20, 0, 0x53053053) = 0
+61510 mprotect(0x716de1c16000, 16384, PROT_READ) = 0
+61510 mprotect(0x5ae03c5e2000, 4096, PROT_READ) = 0
+61510 mprotect(0x716de1e59000, 8192, PROT_READ) = 0
+61510 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+61510 munmap(0x716de1e12000, 18763)     = 0
+61510 getrandom("\x63\x53\x78\x9d\xbc\x77\x6a\x08", 8, GRND_NONBLOCK) = 8
+61510 brk(NULL)                         = 0x5ae07ad81000
+61510 brk(0x5ae07ada2000)               = 0x5ae07ada2000
+61510 getpid()                          = 61510
+61510 newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x6), ...}, AT_EMPTY_PATH) = 0
+61510 write(1, "BEFORE_FORK pid=61510 global=0x5"..., 104) = 104
+61510 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x716de1e0fa10) = 61511
+61511 set_robust_list(0x716de1e0fa20, 24 <unfinished ...>
+61510 getpid( <unfinished ...>
+61511 <... set_robust_list resumed>)    = 0
+61510 <... getpid resumed>)             = 61510
+61511 getppid( <unfinished ...>
+61510 write(1, "PARENT_AFTER_FORK pid=61510 chil"..., 122 <unfinished ...>
+61511 <... getppid resumed>)            = 61510
+61510 <... write resumed>)              = 122
+61511 getpid( <unfinished ...>
+61510 getpid( <unfinished ...>
+61511 <... getpid resumed>)             = 61511
+61510 <... getpid resumed>)             = 61510
+61510 write(1, "[PARENT_WHILE_CHILD_EXISTS] pid="..., 63 <unfinished ...>
+61511 write(1, "CHILD_AFTER_FORK pid=61511 ppid="..., 120 <unfinished ...>
+61510 <... write resumed>)              = 63
+61511 <... write resumed>)              = 120
+61510 newfstatat(0, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x6), ...}, AT_EMPTY_PATH) = 0
+61511 write(1, "CHILD_AFTER_WRITE values=101,201"..., 37 <unfinished ...>
+61510 read(0,  <unfinished ...>
+61511 <... write resumed>)              = 37
+61511 getpid()                          = 61511
+61511 write(1, "[CHILD_BEFORE_EXEC] pid=61511: p"..., 55) = 55
+61511 newfstatat(0, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x6), ...}, AT_EMPTY_PATH) = 0
+61511 read(0,  <unfinished ...>
+61510 <... read resumed>"\n", 1024)     = 1
+61510 wait4(61511,  <unfinished ...>
+61511 <... read resumed>"\n", 1024)     = 1
+61511 execve("./child", ["child"], 0x7ffdd9cdf258 /* 26 vars */) = 0
+61511 brk(NULL)                         = 0x5f8eba255000
+61511 arch_prctl(0x3001 /* ARCH_??? */, 0x7fff22954da0) = -1 EINVAL (Invalid argument)
+61511 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x77922cfd0000
+61511 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+61511 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+61511 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=18763, ...}, AT_EMPTY_PATH) = 0
+61511 mmap(NULL, 18763, PROT_READ, MAP_PRIVATE, 3, 0) = 0x77922cfcb000
+61511 close(3)                          = 0
+61511 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+61511 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+61511 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+61511 pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+61511 pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\"\312\n\203\244\0A\"\343\ni\265\227\276\226\341"..., 68, 896) = 68
+61511 newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2220400, ...}, AT_EMPTY_PATH) = 0
+61511 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+61511 mmap(NULL, 2264656, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x77922cc00000
+61511 mprotect(0x77922cc28000, 2023424, PROT_NONE) = 0
+61511 mmap(0x77922cc28000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x77922cc28000
+61511 mmap(0x77922cdbd000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x77922cdbd000
+61511 mmap(0x77922ce16000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x215000) = 0x77922ce16000
+61511 mmap(0x77922ce1c000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x77922ce1c000
+61511 close(3)                          = 0
+61511 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x77922cfc8000
+61511 arch_prctl(ARCH_SET_FS, 0x77922cfc8740) = 0
+61511 set_tid_address(0x77922cfc8a10)   = 61511
+61511 set_robust_list(0x77922cfc8a20, 24) = 0
+61511 rseq(0x77922cfc90e0, 0x20, 0, 0x53053053) = 0
+61511 mprotect(0x77922ce16000, 16384, PROT_READ) = 0
+61511 mprotect(0x5f8e7cc1b000, 4096, PROT_READ) = 0
+61511 mprotect(0x77922d012000, 8192, PROT_READ) = 0
+61511 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+61511 munmap(0x77922cfcb000, 18763)     = 0
+61511 getrandom("\xa1\xbd\x2a\xb3\xb3\xe7\x38\x59", 8, GRND_NONBLOCK) = 8
+61511 brk(NULL)                         = 0x5f8eba255000
+61511 brk(0x5f8eba276000)               = 0x5f8eba276000
+61511 getpid()                          = 61511
+61511 newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x6), ...}, AT_EMPTY_PATH) = 0
+61511 write(1, "AFTER_EXEC pid=61511 global=0x5f"..., 103) = 103
+61511 write(1, "[CHILD_AFTER_EXEC] press ENTER t"..., 39) = 39
+61511 newfstatat(0, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x6), ...}, AT_EMPTY_PATH) = 0
+61511 read(0, "\n", 1024)               = 1
+61511 exit_group(0)                     = ?
+61511 +++ exited with 0 +++
+61510 <... wait4 resumed>[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 61511
+61510 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=61511, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+61510 write(1, "PARENT_AFTER_WAIT values=100,200"..., 52) = 52
+61510 exit_group(0)                     = ?
+61510 +++ exited with 0 +++
